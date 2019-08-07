@@ -1,15 +1,17 @@
-export default class ObjectMapper {
-	object: object
-	constructor(object: object){
-		this.object = object
-	}
+type MappableObjectCallBack = (value: any, key?: any, object?: object) => any
 
-	map(callBack : ObjectMapCallBack){
-		return Object.fromEntries(
-			Object.entries(this.object).map(
-					([k, v]) => [k, callBack(v, k, this.object)]
-			)
-		)
+export default class MappableObject extends Object {
+	mapEntries(callBack : MappableObjectCallBack): object {
+		return Object.fromEntries(Object.entries(this).map(
+			([key, value]) => [key, callBack(value, key, this)]
+		))
 	}
 }
-type ObjectMapCallBack = (value: any, key?: any, object?: object) => {value: any}
+
+// Alternately add mapEntries to the Object prototype
+// @ts-ignore
+Object.prototype.mapEntries = function(mapEntriesCB) {
+	return Object.fromEntries(Object.entries(this).map(
+		([key, value]) => [key, mapEntriesCB(value, key, this)]
+	));
+}
