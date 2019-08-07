@@ -1,0 +1,11 @@
+{
+  "name": "js-snippets",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Arye Eidelman <aryedov.e@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  }
+}
